@@ -16,16 +16,17 @@ sequelize.authenticate()
 .catch((error)=>{
   console.log(error.message);
 });
-/*sequelize.sync()
+
+sequelize.sync()
   .then(()=>{
     console.log('Cambios reflejados');
   })
   .catch((error)=>{
     console.log(error.message);
-  });*/
+  });
 
 
-/*const modelsDir = path.join(__dirname, '../models');
+const modelsDir = path.join(__dirname, '../models');
 fs
   .readdirSync(modelsDir)
   .filter(file => {
@@ -34,7 +35,7 @@ fs
   .forEach(file => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
-  });*/
+  });
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
