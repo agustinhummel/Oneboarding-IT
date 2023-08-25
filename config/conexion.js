@@ -1,4 +1,4 @@
-require('dotenv').config({path: '../.env'});
+require('dotenv').config();
 
 const conexionObj={
     user: process.env.DB_USER,
