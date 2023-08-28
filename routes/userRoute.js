@@ -9,7 +9,7 @@ router.get('/', async (req,res)=>{
         return res.json(users);
     }
     catch(error){
-        return res.send(error.message);
+        return res.status(500).send(error.message);
     }
 });
 
@@ -18,12 +18,12 @@ router.get('/:id',async(req,res)=>{
         let id=req.params.id;
         let user=await User.findOne({where:{id: id}});
         if(!user){
-            return res.send('Ese usuario no existe')
+            return res.status(404).send('Ese usuario no existe')
         }
         return res.json(user);
     }
     catch(error){
-        res.send(error.message);
+        res.status(500).send(error.message);
     }
     });
 
@@ -49,7 +49,7 @@ router.post('/',async(req,res)=>{
         return res.status(201).send('Usuario registrado');
     }
     catch(error){
-        res.send(error.message);
+        res.status(500).send(error.message);
     }
 });
 
@@ -64,7 +64,7 @@ router.put('/:id',async(req,res)=>{
         return res.send('Usuario actualizado');
     }
     catch(error){
-        res.send(error.message);
+        res.status(500).send(error.message);
     }
 });
 
@@ -79,7 +79,7 @@ router.delete('/:id',async(req,res)=>{
         return res.send('Usuario eliminado');
     }
     catch(error){
-        res.send(error.message);
+        res.status(500).send(error.message);
     }
     });
 
