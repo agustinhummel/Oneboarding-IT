@@ -35,7 +35,7 @@ const sequelize = new Sequelize(conexionObj.database, conexionObj.user, conexion
     }
   });
 
-  return db;
-
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
 module.exports=db;
