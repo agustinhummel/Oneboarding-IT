@@ -29,9 +29,10 @@ router.get('/:id',async(req,res)=>{
 
 router.post('/',async(req,res)=>{
     try{
-        let {userObj, passwordR}=req.body;
+        let userObj=req.body;
+        let {passwordR}=req.body;
         if(userObj.password!==passwordR){
-            return res.send('las contraseñas no coiciden');
+            return res.status(400).send('las contraseñas no coiciden');
         }
         const hashResult=await new Promise((resolve,reject)=>{
             bcrypt.hash(userObj.password,10,(err, result)=>{
@@ -45,7 +46,7 @@ router.post('/',async(req,res)=>{
         });
         userObj.password=hashResult;
         await User.create(userObj);
-        return res.send('Usuario registrado');
+        return res.status(201).send('Usuario registrado');
     }
     catch(error){
         res.send(error.message);
@@ -55,9 +56,9 @@ router.post('/',async(req,res)=>{
 router.put('/:id',async(req,res)=>{
     try{
         let id=req.params.id;
-        let userUpdate=User.findOne({where:{id: id}});
+        let userUpdate=await User.findOne({where:{id: id}});
         if(!userUpdate){
-            return res.send(`El usuario con el id ${id} no existe`);
+            return res.status(400).send(`No se puede actualizar el usuario con el id ${id} porque no existe`);
         }
         await User.update(req.body,{where:{id: id}});
         return res.send('Usuario actualizado');
@@ -72,7 +73,7 @@ router.delete('/:id',async(req,res)=>{
         let id=req.params.id;
         let userDelete=await User.findOne({where:{id: id}});
         if(!userDelete){
-            return res.send(`El usuario con el id ${id} no existe`);
+            return res.status(400).send(`No se puede eliminar el usuario con el id ${id} porque no existe`);
         }
         await User.destroy({where:{id: id}});
         return res.send('Usuario eliminado');
