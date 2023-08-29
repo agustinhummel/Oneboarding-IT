@@ -3,12 +3,12 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class client extends Model {
+  class Client extends Model {
     static associate(models) {
       // define association here
     }
   }
-  client.init({
+  Client.init({
     nCuit: DataTypes.STRING,
     registeredOffice: DataTypes.STRING,
     rubro: DataTypes.STRING,
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     webPage:DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'client',
+    modelName: 'Client',
   });
-  return client;
+  return Client;
 };
