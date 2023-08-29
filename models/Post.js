@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING,
       description: DataTypes.TEXT,
     //   enabled: DataTypes.BOOLEAN,
-      initialDate: DataTypes.DATE,
-      finalDate: DataTypes.DATE 
+      initialDate: DataTypes.STRING,
+      finalDate: DataTypes.STRING 
     },
     {
       sequelize,
