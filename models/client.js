@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   Client.init({
     nCuit: DataTypes.STRING,
     registeredOffice: DataTypes.STRING,
-    rubro: DataTypes.STRING,
+    sector: DataTypes.STRING,
     email: DataTypes.STRING,
     phone: DataTypes.STRING,
     webPage:DataTypes.STRING
