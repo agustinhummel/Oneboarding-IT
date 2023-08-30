@@ -25,14 +25,14 @@ router.get('/:id',async(req,res)=>{
     catch(error){
         res.status(500).send(error.message);
     }
-    });
+});
 
 router.post('/',async(req,res)=>{
     try{
         let userObj=req.body;
         let {passwordR}=req.body;
         if(userObj.password!==passwordR){
-            return res.status(400).send('las contraseñas no coiciden');
+            return res.status(400).send('las contraseñas no coinciden');
         }
         const hashResult=await new Promise((resolve,reject)=>{
             bcrypt.hash(userObj.password,10,(err, result)=>{
