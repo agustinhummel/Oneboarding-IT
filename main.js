@@ -5,6 +5,7 @@ require('dotenv').config();
 const userRoute=require('./routes/userRoute');
 const postsRoute = require('./routes/postRoute');
 const clientRoute=require('./routes/clientRoute');
+const professionalRoute=require('./routes/professionalRoute')
 
 
 app.use(morgan('dev'));
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use('/users',userRoute);
 app.use('/posts', postsRoute);
 app.use('/clients',clientRoute);
+app.use('/professionals',professionalRoute);
 
 const port=process.env.PORT || 8080;
 app.listen(port, ()=>{
