@@ -2,6 +2,8 @@ const express=require('express');
 const router=express.Router();
 const { User } =require('../models');
 const bcrypt=require('bcryptjs');
+const jwt=require('jsonwebtoken');
+
 
 router.get('/', async (req,res)=>{
     try{
@@ -47,6 +49,26 @@ router.post('/',async(req,res)=>{
         userObj.password=hashResult;
         await User.create(userObj);
         return res.status(201).send('Usuario registrado');
+    }
+    catch(error){
+        res.status(500).send(error.message);
+    }
+});
+
+router.post('/login',async(req,res)=>{
+    try{
+        let userQuery=await User.findOne({where: {userName: req.body.userName}});
+        if(userQuery){
+            let matchPassword=await bcrypt.compare(req.body.password,userQuery.password);
+            if(matchPassword){
+                let payload={
+                    id: userQuery.id
+                }
+                let token=jwt.sign(payload,process.env.SECRET_TOKEN,{expiresIn: '1h'});
+                return res.status(200).json({token: token});
+            }
+        }
+        return res.status(401).send('Error en el usuario o contraseña');
     }
     catch(error){
         res.status(500).send(error.message);
