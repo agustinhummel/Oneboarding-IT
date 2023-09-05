@@ -1,6 +1,7 @@
 const express=require('express');
 const app=express();
 const morgan=require('morgan');
+const cors=require('cors');
 require('dotenv').config();
 const userRoute=require('./routes/userRoute');
 const postsRoute = require('./routes/postRoute');
@@ -9,6 +10,7 @@ const professionalRoute=require('./routes/professionalRoute')
 
 
 app.use(morgan('dev'));
+app.use(cors());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use('/users',userRoute);
