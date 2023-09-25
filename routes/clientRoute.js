@@ -1,16 +1,17 @@
 const express=require('express');
 const router=express.Router();
-const { Client }=require('../models');
+const bcrypt=require('bcryptjs');
+const { Clientes }=require('../models');
 
 
 router.get('/:id?',async(req,res)=>{
     try{
         let id=req.params.id; 
         if(!id){
-            let clients=await Client.findAll();
+            let clients=await Clientes.findAll();
             return res.json(clients);
         }
-        let client=await Client.findOne({where:{id:id}});
+        let client=await Clientes.findOne({where:{id:id}});
         if(!client){
             return res.status(404).send(`El cliente con el id ${id} no existe`);
         }
@@ -24,7 +25,18 @@ router.get('/:id?',async(req,res)=>{
 router.post('/',async(req,res)=>{
     try{
         let client=req.body;
-        await Client.create(client);
+        const hashResult=await new Promise((resolve,reject)=>{
+            bcrypt.hash(client.clave,10,(err, result)=>{
+                if(err){
+                    reject(err);
+                }
+                else{
+                    resolve(result);
+                }
+            })
+        });
+        client.clave=hashResult;
+        await Clientes.create(client);
         return res.status(201).send('Cliente registrado');
     }
     catch(error){
@@ -35,11 +47,11 @@ router.post('/',async(req,res)=>{
 router.put('/:id',async(req,res)=>{
     try{
         let id=req.params.id;
-        let clientQuery=await Client.findOne({where:{id: id}});
+        let clientQuery=await Clientes.findOne({where:{id: id}});
         if(!clientQuery){
             return res.status(400).send(`No se puede actualizar el cliente con el id ${id} porque no existe`);
         }
-        await Client.update(req.body,{where:{id:id}});
+        await Clientes.update(req.body,{where:{id:id}});
         return res.send('Cliente actualizado');
     }
     catch(error){
@@ -50,11 +62,11 @@ router.put('/:id',async(req,res)=>{
 router.delete('/:id',async(req,res)=>{
     try{
         let id=req.params.id;
-        let clientQuery=await Client.findOne({where:{id: id}});
+        let clientQuery=await Clientes.findOne({where:{id: id}});
         if(!clientQuery){
             return res.status(400).send(`No se puede eliminar el cliente con el id ${id} porque no existe`);
         }
-        await Client.destroy({where:{id: id}});
+        await Clientes.destroy({where:{id: id}});
         return res.send('Cliente eliminado');
     }
     catch(error){

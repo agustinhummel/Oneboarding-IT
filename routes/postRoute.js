@@ -1,11 +1,11 @@
 const express=require('express');
 const router=express.Router();
-const { Post } = require('../models');
+const { Vacantes } = require('../models');
 const verifyToken=require('../middlewares/tokenMiddleware')
 
 router.get('/', async (req,res)=>{
     try{
-        const post=await Post.findAll();
+        const post=await Vacantes.findAll();
         return res.json(post);
     }
     catch(error){
@@ -16,9 +16,9 @@ router.get('/', async (req,res)=>{
 router.get('/:id',async(req,res)=>{
     try{
         const id = req.params.id;
-        const post = await Post.findOne({where:{id: id}});
+        const post = await Vacantes.findOne({where:{id: id}});
         if(!post){
-            return res.status(404).send('Ese post no existe')
+            return res.status(404).send('Esa vacante no existe')
         }
         return res.json(post);
     }
@@ -29,14 +29,14 @@ router.get('/:id',async(req,res)=>{
 
 
     router.post('/', verifyToken, async(req,res)=>{
-        const { title, description, initialDate, finalDate } = req.body;
+        const { skills, descripcion } = req.body;
         try {
             
-            if (!title || !description || !initialDate || !finalDate ) {
+            if (!skills || !description) {
                 throw new Error('missing parameters')
             }
 
-            const newPost = await Post.create({title, description, initialDate, finalDate })
+            const newPost = await Vacantes.create({skills, description })
 
             return res.status(201).json(newPost)
 
@@ -49,12 +49,12 @@ router.get('/:id',async(req,res)=>{
     router.delete('/:id', verifyToken, async(req,res)=>{
         try{
             const id = req.params.id;
-            const postDelete=await Post.findOne({where:{id: id}});
+            const postDelete=await Vacantes.findOne({where:{id: id}});
             if(!postDelete){
-                return res.status(400).send(`No se puede eliminar el post con el id ${id} porque no existe`);
+                return res.status(400).send(`No se puede eliminar la vacante con el id ${id} porque no existe`);
             }
-            await Post.destroy({where:{id: id}});
-            return res.send('Post eliminado');
+            await Vacantes.destroy({where:{id: id}});
+            return res.send('Vacante eliminada');
         }
         catch(error){
             res.status(500).send(error.message);
@@ -64,15 +64,14 @@ router.get('/:id',async(req,res)=>{
         router.put('/:id', verifyToken, async(req,res)=>{
             try {
                 const id = req.params.id;
-                const { title,
-                    description,
-                    initialDate,
-                    finalDate } = req.body;
+                const { skills,
+                    descripcion,
+                    } = req.body;
 
-                if (!title || !description || !initialDate || !finalDate ) {
+                if (!skills || !descripcion) {
                     throw new Error('missing parameters')
                 }
-                const postFound = await Post.findByPk(id);
+                const postFound = await Vacantes.findByPk(id);
     
                 if (!postFound) throw new Error("Post not found");
                 const response = await postFound.update({ title, description, initialDate, finalDate });

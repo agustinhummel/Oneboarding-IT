@@ -13,10 +13,10 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-app.use('/users',userRoute);
-app.use('/posts', postsRoute);
-app.use('/clients',clientRoute);
-app.use('/professionals',professionalRoute);
+app.use('/usuarios',userRoute);
+app.use('/vacantes', postsRoute);
+app.use('/clientes',clientRoute);
+app.use('/postulantes',professionalRoute);
 
 const port=process.env.PORT || 8080;
 app.listen(port, ()=>{
