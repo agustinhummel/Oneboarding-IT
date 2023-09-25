@@ -3,21 +3,35 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Client extends Model {
+  class Clientes extends Model {
     static associate(models) {
       // define association here
     }
   }
-  Client.init({
-    nCuit: DataTypes.STRING,
-    registeredOffice: DataTypes.STRING,
-    sector: DataTypes.STRING,
-    email: DataTypes.STRING,
-    phone: DataTypes.STRING,
-    webPage:DataTypes.STRING
+  Clientes.init({
+    nombres: DataTypes.STRING(45),
+    apellidos: DataTypes.STRING(50),
+    dni: DataTypes.STRING(8),
+    fecha_nac: DataTypes.DATE,
+    celular: DataTypes.STRING(20),
+    domicilio: DataTypes.STRING(200),
+    email: {
+      type: DataTypes.STRING(50),
+      unique: true,
+    },
+    clave: DataTypes.STRING(1000),
+    nroafiliado: DataTypes.STRING(20),
+    fechaalta: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    encargadoalta: DataTypes.STRING(45),
+    edad: DataTypes.TINYINT
   }, {
     sequelize,
-    modelName: 'Client',
+    modelName: 'Clientes',
+    timestamps: false
   });
-  return Client;
+  return Clientes;
 };
