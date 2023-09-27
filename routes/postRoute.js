@@ -32,11 +32,11 @@ router.get('/:id',async(req,res)=>{
         const { skills, descripcion } = req.body;
         try {
             
-            if (!skills || !description) {
+            if (!skills || !descripcion) {
                 throw new Error('missing parameters')
             }
 
-            const newPost = await Vacantes.create({skills, description })
+            const newPost = await Vacantes.create({skills, descripcion })
 
             return res.status(201).json(newPost)
 
@@ -74,7 +74,7 @@ router.get('/:id',async(req,res)=>{
                 const postFound = await Vacantes.findByPk(id);
     
                 if (!postFound) throw new Error("Post not found");
-                const response = await postFound.update({ title, description, initialDate, finalDate });
+                const response = await postFound.update({skills, descripcion});
                 await postFound.save();
                 return res.status(200).json(response)
     
