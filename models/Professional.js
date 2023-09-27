@@ -24,11 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
     },
     clave: DataTypes.STRING(1000),
-    fechaalta: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
+    fechaalta: DataTypes.DATE,
     encargadoalta: DataTypes.STRING(45),
   }, {
     sequelize,
