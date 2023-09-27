@@ -1,6 +1,6 @@
 # Oneboarding-IT
 (BACKEND) 
-Documentación de la API de Oneboarding-It
+Documentación de la API de smartresources
 
 ## Tecnologías/librerías empleadas
 - NodeJs
@@ -25,7 +25,7 @@ Documentación de la API de Oneboarding-It
 ### /usuarios
 - La ruta `/usuarios` permite los cuatro tipos de solicitudes para el CRUD de usuarios.
 - Para agregar un usuario, se deben incluir las propiedades `nombres`, `apellidos`, `domicilio`, `dni`, `email`, `clave`, `fechaalta`, `encargadoalta`, `area_idarea` y `cargo_idcargo`.
-- La ruta `/usuarios` también tiene otro endpoint llamado `/login` que se utiliza para la autenticación. Se requiere el nombre de usuario y contraseña.
+- La ruta `/usuarios` también tiene otro endpoint llamado `/login` que se utiliza para la autenticación. Se requiere el nombre de usuario y contraseña. Las propiedades de `/login` son: `nombre` y `clave`.
 - Al autenticar, se asigna un token para ese usuario que permite realizar acciones en rutas protegidas, como `/vacantes`.
 - El token expira en una hora.
 - Para realizar una acción en una ruta protegida, se debe pasar el token en el encabezado de la petición como valor de `Authorization`. Por ejemplo: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImlhdCI6MTY5NDYyMTg1OCwiZXhwIjoxNjk0NjI1NDU4fQ.FIMdgkdKC6lhna_YlATjtRG8CXtlZkiXD6zFPcUtQE4`
