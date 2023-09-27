@@ -21,11 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     clave: DataTypes.STRING(1000),
     nroafiliado: DataTypes.STRING(20),
-    fechaalta: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
+    fechaalta: DataTypes.DATE,
     encargadoalta: DataTypes.STRING(45),
     edad: DataTypes.TINYINT
   }, {
