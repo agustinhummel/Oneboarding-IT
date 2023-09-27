@@ -42,7 +42,7 @@ Documentación de la API de Oneboarding-It
 
 ### /posts
 - Peticiones que acepta: GET, POST, PUT y DELETE.
-- Propiedades: `skills`, `descripcion`, `initialDate` y `finalDate`.
+- Propiedades: `skills` y `descripcion`.
 
 ## Códigos de estados
 - Las rutas pueden retornar los siguientes códigos de estado HTTP:
