@@ -40,9 +40,16 @@ Documentación de la API de smartresources
 - Peticiones que acepta: GET, POST, PUT y DELETE.
 - Propiedades: `nombres`, `apellidos`, `dni`, `fecha_nac`, `celular`, `domicilio`, `email`, `clave`, `nroafiliado`, `fechaalta`, `encargadoalta` y `edad`.
 
-### /posts
+
+### /vacantes
 - Peticiones que acepta: GET, POST, PUT y DELETE.
 - Propiedades: `skills` y `descripcion`.
+
+
+### /contacto
+- Peticiones que acepta: GET y POST
+- Propiedades: `nombre`, `apellido`, `email`, `titulo`, `mensaje`
+
 
 ## Códigos de estados
 - Las rutas pueden retornar los siguientes códigos de estado HTTP:
