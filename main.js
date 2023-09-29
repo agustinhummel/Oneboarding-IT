@@ -7,6 +7,7 @@ const userRoute=require('./routes/userRoute');
 const postsRoute = require('./routes/postRoute');
 const clientRoute=require('./routes/clientRoute');
 const professionalRoute=require('./routes/professionalRoute')
+const contactoRoute=require('./routes/contactoRoute');
 
 
 app.use(morgan('dev'));
@@ -17,6 +18,7 @@ app.use('/usuarios',userRoute);
 app.use('/vacantes', postsRoute);
 app.use('/clientes',clientRoute);
 app.use('/postulantes',professionalRoute);
+app.use('/contacto', contactoRoute);
 
 const port=process.env.PORT || 8080;
 app.listen(port, ()=>{
